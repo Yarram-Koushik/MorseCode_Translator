@@ -1,0 +1,391 @@
+:root {
+  --bg-abyss: #07090E;
+  --bg-surface: #0E131F;
+  --bg-card: rgba(18, 24, 38, 0.75);
+  --bg-card-hover: rgba(28, 38, 58, 0.85);
+  --bg-glass: rgba(14, 19, 31, 0.6);
+  --bg-panel: #141B2D;
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-active: rgba(6, 182, 212, 0.4);
+  --border-glow: rgba(6, 182, 212, 0.6);
+
+  --cyan-primary: #06B6D4;
+  --cyan-glow: rgba(6, 182, 212, 0.35);
+  --cyan-light: #67E8F9;
+
+  --amber-signal: #F59E0B;
+  --amber-glow: rgba(245, 158, 11, 0.4);
+  --amber-light: #FCD34D;
+
+  --emerald-lock: #10B981;
+  --emerald-glow: rgba(16, 185, 129, 0.35);
+
+  --rose-alert: #F43F5E;
+  --rose-glow: rgba(244, 63, 94, 0.35);
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-dim: #475569;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace, ui-monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --shadow-glow: 0 0 25px rgba(6, 182, 212, 0.15);
+  --shadow-amber-glow: 0 0 25px rgba(245, 158, 11, 0.2);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-abyss);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 100% 50%, rgba(245, 158, 11, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 0% 100%, rgba(16, 185, 129, 0.04) 0%, transparent 40%);
+  background-attachment: fixed;
+}
+
+/* Custom Monospace Utility */
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Glassmorphism Panel */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.glass-panel.active-glow {
+  border-color: var(--cyan-primary);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Telemetry Badge */
+.telemetry-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+}
+
+.telemetry-badge.cyan {
+  background: rgba(6, 182, 212, 0.12);
+  border-color: rgba(6, 182, 212, 0.3);
+  color: var(--cyan-light);
+}
+
+.telemetry-badge.amber {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: var(--amber-light);
+}
+
+.telemetry-badge.emerald {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #6EE7B7;
+}
+
+.telemetry-badge.rose {
+  background: rgba(244, 63, 94, 0.12);
+  border-color: rgba(244, 63, 94, 0.3);
+  color: #FDA4AF;
+}
+
+/* Pulse indicator dot */
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--emerald-lock);
+  box-shadow: 0 0 8px var(--emerald-lock);
+  animation: pulse-glow 2s infinite;
+}
+
+.pulse-dot.active {
+  background: var(--amber-signal);
+  box-shadow: 0 0 12px var(--amber-signal);
+  animation: signal-blip 0.4s infinite alternate;
+}
+
+.pulse-dot.danger {
+  background: var(--rose-alert);
+  box-shadow: 0 0 8px var(--rose-alert);
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes signal-blip {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(6, 182, 212, 0.4);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+  user-select: none;
+  outline: none;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #06B6D4, #0284C7);
+  color: #07090E;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #22D3EE, #0EA5E9);
+  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-amber {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: #07090E;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.btn-amber:hover:not(:disabled) {
+  background: linear-gradient(135deg, #FBBF24, #F59E0B);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+/* High-Contrast Accessibility Mode */
+body.high-contrast {
+  --bg-abyss: #000000;
+  --bg-panel: #050505;
+  --border-subtle: rgba(255, 255, 255, 0.4);
+  --text-primary: #FFFFFF;
+  --text-secondary: #E2E8F0;
+  --cyan-primary: #00FFFF;
+  --cyan-light: #67E8F9;
+  --amber-signal: #FFB703;
+  --amber-light: #FDE047;
+}
+
+body.high-contrast .glass-panel {
+  border: 2px solid #FFFFFF !important;
+  background: #000000 !important;
+}
+
+body.high-contrast button {
+  font-weight: 800 !important;
+}
+
+/* Telegraph Brass Key Button */
+.telegraph-key {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #4A3B1B 0%, #201A0E 70%, #120E06 100%);
+  border: 4px solid #C89B3C;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.7), inset 0 2px 6px rgba(255, 255, 255, 0.3), 0 0 20px rgba(200, 155, 60, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, border-color 0.08s ease;
+  user-select: none;
+  touch-action: none;
+}
+
+.telegraph-key:active,
+.telegraph-key.pressed {
+  transform: scale(0.94) translateY(4px);
+  border-color: #FBBF24;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.9), inset 0 3px 8px rgba(0, 0, 0, 0.6), 0 0 30px rgba(245, 158, 11, 0.6);
+  background: radial-gradient(circle at 45% 45%, #6B5524 0%, #302613 70%, #1A1408 100%);
+}
+
+.telegraph-key-cap {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #D4AF37 0%, #AA8010 60%, #664A04 100%);
+  border: 2px solid #F3E5AB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1A1408;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+/* Morse Symbol Highlighting */
+.morse-symbol-chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  min-width: 44px;
+}
+
+.morse-symbol-chip.active {
+  border-color: var(--amber-signal);
+  background: rgba(245, 158, 11, 0.15);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+
+.morse-symbol-chip .char {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.morse-symbol-chip .code {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--cyan-light);
+  letter-spacing: 0.1em;
+}
+
+/* Animations */
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(1000%);
+  }
+}
+
+.scanline-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline-effect::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.4), transparent);
+  animation: scanline 4s linear infinite;
+  pointer-events: none;
+}
